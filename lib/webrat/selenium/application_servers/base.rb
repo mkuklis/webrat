@@ -27,7 +27,7 @@ module Webrat
         def wait_for_socket
           silence_stream(STDOUT) do
             TCPSocket.wait_for_service_with_timeout \
-              :host     => "0.0.0.0",
+              :host     => Webrat.configuration.selenium_server_address,
               :port     => Webrat.configuration.application_port.to_i,
               :timeout  => 30 # seconds
           end
