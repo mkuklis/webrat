@@ -1,11 +1,15 @@
 require "webrat/selenium/silence_stream"
-
+require "selenium/client"
 module Webrat
   module Selenium
     module ApplicationServers
       class Base
         include Webrat::Selenium::SilenceStream
-
+        
+        def initialize
+          @shell = Nautilus::Shell.new
+        end
+        
         def boot
           start
           wait
@@ -27,7 +31,7 @@ module Webrat
         def wait_for_socket
           silence_stream(STDOUT) do
             TCPSocket.wait_for_service_with_timeout \
-              :host     => Webrat.configuration.selenium_server_address,
+              :host     => "127.0.0.1",
               :port     => Webrat.configuration.application_port.to_i,
               :timeout  => 30 # seconds
           end
@@ -38,6 +42,10 @@ module Webrat
         def prepare_pid_file(file_path, pid_file_name)
           FileUtils.mkdir_p File.expand_path(file_path)
           File.expand_path("#{file_path}/#{pid_file_name}")
+        end
+        
+        def windows?
+          RUBY_PLATFORM =~ /mswin/
         end
 
       end
