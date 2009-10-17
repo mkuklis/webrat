@@ -6,7 +6,11 @@ module Webrat
       class Rails < Webrat::Selenium::ApplicationServers::Base
 
         def start
-            @shell.run start_command, {:background => true}
+          if windows?
+            @shell.run remove_service, {:background => true }
+            @shell.run install_service, {:background => false }
+          end
+          @shell.run start_command, {:background => true}
         end
 
         def stop
@@ -43,7 +47,6 @@ module Webrat
         
         def start_command
           if windows?
-            @shell.run install_service, {:background => false }
             "net start testapp"
           else 
             "mongrel_rails start -d --chdir='#{RAILS_ROOT}' --port=#{Webrat.configuration.application_port} --environment=#{Webrat.configuration.application_environment} --pid #{pid_file} &"

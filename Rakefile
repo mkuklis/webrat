@@ -9,10 +9,10 @@ rescue LoadError
   end
 else
   Jeweler::Tasks.new do |s|
-    s.name      = "webrat"
+    s.name      = "mkuklis-webrat"
     s.author    = "Bryan Helmkamp"
     s.email     = "bryan" + "@" + "brynary.com"
-    s.homepage  = "http://github.com/brynary/webrat"
+    s.homepage  = "http://github.com/mkuklis/webrat"
     s.summary   = "Ruby Acceptance Testing for Web applications"
     s.description  = <<-EOS.strip
 Webrat lets you quickly write expressive and robust acceptance tests
@@ -29,7 +29,7 @@ Most Ruby web frameworks and testing frameworks are supported.
     # Dependencies
     s.add_dependency "nokogiri", ">= 1.2.0"
     s.add_dependency "rack", ">= 1.0"
-
+    
     s.add_development_dependency "rails", ">= 2.3"
     s.add_development_dependency "merb-core", ">= 1.0"
     s.add_development_dependency "launchy"
