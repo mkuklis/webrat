@@ -123,11 +123,16 @@ module Webrat
 
     webrat_deprecate :chooses, :choose
 
+    def attach_file(field_locator, path, content_type = nil)
+      fill_in(field_locator, :with => path)
+    end
+
     def check(label_text)
       locator = "webrat=#{label_text}"
       selenium.wait_for_element locator, :timeout_in_seconds => 5
       selenium.click locator
     end
+
     alias_method :uncheck, :check
 
     webrat_deprecate :checks, :check
